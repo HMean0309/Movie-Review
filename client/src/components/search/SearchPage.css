@@ -1,0 +1,96 @@
+/* Container chính */
+.search-page-container {
+    min-height: 80vh;
+}
+
+/* --- LƯỚI PHIM 5 CỘT --- */
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+    gap: 24px;
+}
+
+/* Item phim */
+.movie-grid-item {
+    transition: transform 0.3s ease;
+    display: block;
+    text-decoration: none;
+}
+
+.movie-grid-item:hover {
+    transform: translateY(-5px);
+    z-index: 2;
+}
+
+/* Ảnh Poster */
+.poster-wrapper-search {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2 / 3; 
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #1a1a1a;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.poster-wrapper-search img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    transition: filter 0.3s, transform 0.3s;
+}
+
+.movie-grid-item:hover .poster-wrapper-search img {
+    filter: brightness(0.6);
+    transform: scale(1.05);
+}
+
+.hover-info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.play-btn {
+    font-size: 3rem;
+    color: #e50914;
+    filter: drop-shadow(0 0 10px rgba(0,0,0,0.8));
+}
+
+.movie-grid-item:hover .hover-info {
+    opacity: 1;
+}
+.movie-grid-item h6 {
+    margin-top: 10px;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #fff;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* --- RESPONSIVE (Dành cho điện thoại/Tablet) --- */
+@media (max-width: 1200px) {
+    .movie-grid {
+        grid-template-columns: repeat(4, 1fr); /* Laptop nhỏ: 4 cột */
+    }
+}
+
+@media (max-width: 992px) {
+    .movie-grid {
+        grid-template-columns: repeat(3, 1fr); /* Tablet: 3 cột */
+    }
+}
+
+@media (max-width: 576px) {
+    .movie-grid {
+        grid-template-columns: repeat(2, 1fr); /* Điện thoại: 2 cột */
+        gap: 15px;
+    }
+}

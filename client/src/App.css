@@ -1,0 +1,293 @@
+/* =========================================
+   1. GLOBAL VARIABLES & RESET
+   ========================================= */
+:root {
+  --primary-color: #e50914;
+  --bg-color: #141414;
+  --text-color: #ffffff;
+  --card-bg: #1f1f1f;
+  --input-bg: #333333;
+}
+
+body {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* FIX TRIỆT ĐỂ MÀU XANH DƯƠNG CỦA LINK */
+a {
+  text-decoration: none !important; /* Bỏ gạch chân */
+  color: inherit !important; /* Kế thừa màu của thẻ cha, không dùng màu xanh */
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: var(--primary-color) !important; /* Hover vào thì đỏ */
+}
+
+/* Scrollbar đẹp */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #111; }
+::-webkit-scrollbar-thumb { background: #444; border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary-color); }
+
+/* =========================================
+   2. BOOTSTRAP OVERRIDES
+   ========================================= */
+.card {
+  background-color: var(--card-bg) !important;
+  color: white !important;
+  border: 1px solid #333 !important;
+}
+
+.btn-danger, .btn-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.btn-danger:hover, .btn-primary:hover {
+  background-color: #b20710 !important;
+  border-color: #b20710 !important;
+}
+
+.form-control {
+  background-color: var(--input-bg) !important;
+  border: 1px solid #555 !important;
+  color: white !important;
+}
+.form-control:focus {
+  background-color: #444 !important;
+  color: white !important;
+  box-shadow: none !important;
+  border-color: var(--primary-color) !important;
+}
+.form-control::placeholder { color: #aaa; }
+
+/* =========================================
+   3. HOME PAGE (SLIDER & CARD)
+   ========================================= */
+
+/* Khung ảnh poster */
+.poster-wrapper {
+  overflow: hidden;
+  border-radius: 8px;
+  height: 320px;
+  width: 100%;
+  position: relative;
+  background-color: #000;
+}
+
+.poster-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.3s;
+}
+
+/* Class bao quanh thẻ phim */
+.movie-card-hover {
+  cursor: pointer;
+  /* Đảm bảo text bên dưới không bị ảnh hưởng bởi link */
+  color: var(--text-color); 
+}
+
+/* Hover: Chỉ phóng to ảnh */
+.movie-card-hover:hover .poster-wrapper img {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}
+
+/* Tên phim Tiếng Việt */
+.movie-title-vn {
+  color: #ffffff !important; /* Bắt buộc trắng */
+  font-weight: 700;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+  margin-top: 10px;
+  line-height: 1.2;
+}
+
+/* Tên phim Tiếng Anh (FIX MÀU XÁM 7A7A7A) */
+.original-title {
+  color: #7A7A7A !important; /* Dùng !important để đè màu xanh của Link */
+  font-weight: 500;
+  font-style: italic;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  display: block; /* Đảm bảo nằm dòng riêng */
+}
+
+/* Mũi tên Slider */
+.react-multiple-carousel__arrow {
+  background: rgba(0, 0, 0, 0.6) !important;
+  border: 1px solid rgba(255,255,255,0.3) !important;
+  min-width: 40px; min-height: 40px; z-index: 20;
+}
+.react-multiple-carousel__arrow:hover {
+  background: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+/* =========================================
+   4. MOVIE DETAILS PAGE
+   ========================================= */
+.movie-hero {
+  position: relative;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  padding: 80px 0;
+  margin-bottom: 40px;
+  box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.85); /* Đen mờ 0.85 */
+}
+
+.poster-container {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #444;
+}
+
+/* =========================================
+   5. REVIEWS & LOADING
+   ========================================= */
+.review-box {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  border: 1px solid #333;
+}
+.review-avatar {
+  width: 45px; height: 45px; min-width: 45px;
+  border-radius: 50%; background-color: var(--primary-color);
+  color: white; display: flex; align-items: center; justify-content: center;
+  font-weight: bold; font-size: 1.2rem; margin-right: 15px;
+}
+.review-item { border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 15px; }
+.review-input { resize: none; }
+.no-reviews-text { color: #b0b0b0 !important; font-style: italic; font-size: 0.95rem; }
+
+.loading-container {
+  display: flex; justify-content: center; align-items: center;
+  height: 80vh; flex-direction: column; color: #aaa;
+}
+.spinner {
+  width: 50px; height: 50px; border: 4px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%; border-top-color: var(--primary-color);
+  animation: spin 0.8s ease-in-out infinite; margin-bottom: 15px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* =========================================
+   6. HEADER
+   ========================================= */
+.navbar-brand { text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+.nav-link { font-weight: 500; margin-right: 15px; color: #ccc !important; }
+.nav-link:hover { color: white !important; }
+.nav-link.active { color: white !important; border-bottom: 2px solid var(--primary-color); }
+
+/* --- EXTRA STYLES CHO TRANG CHI TIẾT --- */
+
+/* Hiệu ứng nút bấm Trailer */
+.hover-scale {
+    transition: transform 0.2s;
+}
+.hover-scale:hover {
+    transform: translateY(-2px);
+}
+
+/* Màu chữ cho tiền tệ */
+.text-success {
+    color: #2ecc71 !important; /* Màu xanh lá cho ngân sách */
+}
+.text-info {
+    color: #3498db !important; /* Màu xanh dương cho doanh thu */
+}
+
+/* Badge (Genre, Rating) mềm mại hơn */
+.badge {
+    letter-spacing: 0.5px;
+}
+
+/* Animation nhẹ cho list review */
+.review-anim {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* --- FIX INPUT DARK MODE --- */
+
+/* 1. Đổi màu chữ Placeholder (chữ mờ) thành màu trắng xám */
+.form-control.bg-dark::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+    opacity: 1; /* Bắt buộc cho Firefox */
+}
+
+/* 2. Xử lý khi bấm vào ô input (Focus) */
+/* Mặc định Bootstrap sẽ đổi nền thành trắng khi focus -> Code này ép nó giữ nền đen */
+.form-control.bg-dark:focus {
+    background-color: #000000 !important; /* Giữ nền đen */
+    color: white !important; /* Giữ chữ trắng */
+    border-color: #e50914 !important; /* Viền đổi màu đỏ cho ngầu */
+    box-shadow: 0 0 0 0.25rem rgba(229, 9, 20, 0.25) !important; /* Hiệu ứng tỏa sáng đỏ nhẹ */
+}
+
+/* 3. Tự động điền (Autofill) của Chrome hay bị nền trắng -> Fix lại thành nền đen */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #1f1f1f inset !important;
+    -webkit-text-fill-color: white !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* --- FIX Ô REVIEW (TEXTAREA) --- */
+
+.review-input {
+    background-color: #1f1f1f !important; /* Màu xám đen nền nã */
+    color: white !important;
+    border: 1px solid #333 !important;
+    resize: none; /* Không cho kéo giãn lung tung */
+}
+
+/* Chỉnh màu chữ placeholder cho ô Review */
+.review-input::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Hiệu ứng khi bấm vào (Focus) */
+.review-input:focus {
+    background-color: #000 !important;
+    border-color: #e50914 !important; /* Viền đỏ Netflix */
+    box-shadow: 0 0 0 0.25rem rgba(229, 9, 20, 0.25) !important;
+}
+
+/*Trailer*/
+.modal-content {
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.modal-header {
+    background-color: #111;
+}
+
+/* Hiệu ứng nút Xem Trailer */
+.hover-scale {
+    transition: transform 0.2s;
+}
+.hover-scale:hover {
+    transform: scale(1.05);
+}
